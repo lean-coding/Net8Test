@@ -41,7 +41,7 @@ namespace BlazorTest.Database
             }
         }
         /// <summary>
-        /// 生成資料庫連接字串
+        /// 生成資料庫連接字串(寫在 appsettings.json)
         /// </summary>
         /// <returns></returns>
         private static string CreateConnectionString()
@@ -108,7 +108,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("ExecuteNonQuery(" + sql + ")Err:" + ex);
+                //_ErrorLog.Insert("ExecuteNonQuery(" + sql + ")Err:" + ex);
                 return false;
             }
             finally
@@ -131,7 +131,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("ExecuteNonQuery(DROP TABLE IF EXISTS " + tablename + ")Err:" + ex);
+                //_ErrorLog.Insert("ExecuteNonQuery(DROP TABLE IF EXISTS " + tablename + ")Err:" + ex);
                 return false;
             }
             finally
@@ -156,7 +156,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("ExecuteNonQuery(ALTER TABLE " + tablename + " ADD COLUMN " + columnname + " " + ctype + ")Err:" + ex);
+                //_ErrorLog.Insert("ExecuteNonQuery(ALTER TABLE " + tablename + " ADD COLUMN " + columnname + " " + ctype + ")Err:" + ex);
                 return false;
             }
             finally
@@ -180,7 +180,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("ExecuteNonQuery(" + sql + ")Err:" + ex);
+                //_ErrorLog.Insert("ExecuteNonQuery(" + sql + ")Err:" + ex);
                 return 0;
             }
             finally
@@ -239,7 +239,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("SqlRow(" + sql + ")Err:" + ex);
+                //_ErrorLog.Insert("SqlRow(" + sql + ")Err:" + ex);
                 return null;
             }
             finally
@@ -290,7 +290,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("sqlcolumn(" + sql + ")Err:" + ex);
+                //_ErrorLog.Insert("sqlcolumn(" + sql + ")Err:" + ex);
                 return null;
             }
             finally
@@ -319,7 +319,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("SqlReader(" + sql + ")Err:" + ex);
+                //_ErrorLog.Insert("SqlReader(" + sql + ")Err:" + ex);
                 return null;
             }
             finally
@@ -343,7 +343,7 @@ namespace BlazorTest.Database
             }
             catch (Exception ex)
             {
-                _ErrorLog.Insert("closeConnErr:" + ex);
+                //_ErrorLog.Insert("closeConnErr:" + ex);
             }
         }
 
