@@ -41,10 +41,10 @@ namespace BlazorTest.Database
             }
         }
         /// <summary>
-        /// 生成資料庫連接字串(寫在 appsettings.json)
+        /// 生成資料庫連接字串(讀取 appsettings.json)
         /// </summary>
         /// <returns></returns>
-        private static string CreateConnectionString()
+        private static string GetConnectionString()
         {
             IConfiguration config = new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json")
@@ -89,10 +89,11 @@ namespace BlazorTest.Database
         /// <returns></returns>
         public static SQLiteConnection dbConnection()
         {
-            m_dbConnection = new SQLiteConnection(CreateConnectionString());
+            m_dbConnection = new SQLiteConnection(GetConnectionString());
             m_dbConnection.Open();
             return m_dbConnection;
         }
+
         /// <summary>
         /// 在指定数据库中创建一个table
         /// </summary>
