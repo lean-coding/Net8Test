@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-2">@dr["SN"].ToString()</div>
                 <div class="col-6">@dr["URL"].ToString()</div>
-                <div class="col-4">@dr["ShortURL"].ToString()</div>
+                <div class="col-4">@dr["ShortCode"].ToString()</div>
             </div>
         }
     }
@@ -37,7 +37,7 @@
         try
         {
             // Create Database "ShortURL"
-            SQLiteHelper.CreateDBFile("ShortURL.db");
+            SQLiteHelper.CreateDBFile("ShortURL.sqlite");
             returnMsg += $" Database [ShortURL] has been created.";
 
             // Create Table
@@ -45,15 +45,15 @@
 CREATE TABLE IF NOT EXISTS M_URL  (
     SN INTEGER PRIMARY KEY AUTOINCREMENT,
     URL NVARCHAR(300),
-    ShortURL NVARCHAR(20) ); ";
+    ShortCode NVARCHAR(20) ); ";
             SQLiteHelper.CreateTable(sql);
             returnMsg += $" Table [M_URL] has been created.";
 
             // Insert Sample data
-            sql = @"Insert Into M_URL (URL, ShortURL)
+            sql = @"Insert Into M_URL (URL, ShortCode)
                 Values ('https://google.com.tw', 'X001'); ";
             SQLiteHelper.ExecuteNonQuery(sql);
-            returnMsg += $" [ShortURL] has been inserted.";
+            returnMsg += $" [M_URL] record has been inserted.";
 
             // Select Sample data
             sql = "Select * From M_URL; ";

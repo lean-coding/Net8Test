@@ -1,6 +1,8 @@
 ﻿using BlazorTest.Database;
 using BlazorTest.Model;
 using Dapper;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using System.Reflection.Metadata;
 
 namespace BlazorTest.Service
 {
@@ -15,16 +17,16 @@ namespace BlazorTest.Service
         {
             try
             {
-                var sql = @"
+                string sql = @"
 INSERT INTO M_URL 
 (
     URL,
-    ShortURL
+    ShortCode
 ) 
 VALUES 
 (
     @URL,
-    @ShortURL
+    @ShortCode
 );
         
 SELECT last_insert_rowid(); ";
@@ -32,9 +34,9 @@ SELECT last_insert_rowid(); ";
                 using (var conn = SQLiteHelper.dbConnection())
                 {
                     mURL.SN = conn.QuerySingle<int>(sql, mURL);
-                    if (mURL.ShortURL == null)
+                    if (mURL.ShortCode == null)
                     {
-                        mURL.ShortURL = GetShortCode(mURL.SN);
+                        mURL.ShortCode = GetShortCode(mURL.SN);
                         Update(mURL);
                     }
                     return true;
@@ -56,10 +58,10 @@ SELECT last_insert_rowid(); ";
         {
             try
             {
-                var sql = @"
+                string sql = @"
 UPDATE M_URL
 SET URL = @URL,
-      ShortURL = @ShortURL
+      ShortCode = @ShortCode
 WHERE SN = @SN; ";
 
                 using (var conn = SQLiteHelper.dbConnection())
@@ -75,10 +77,38 @@ WHERE SN = @SN; ";
             }
         }
 
+        /// <summary>
+        /// 以 ShortCode 反查原始網址
+        /// </summary>
+        /// <param name="ShortCode"></param>
+        /// <returns></returns>
+        public string GetURLbyShortCode(string ShortCode)
+        {
+            try
+            {
+                //M_URL mURL = new();
+                string sql = @"
+SELECT * 
+FROM M_URL
+WHERE ShortCode = @ShortCode; ";
 
+                using (var conn = SQLiteHelper.dbConnection())
+                {
+                    var mURL = conn.QueryFirstOrDefault<M_URL>(sql, new { ShortCode= ShortCode });
+                    if (mURL != null)
+                        return mURL.URL;
+                    else
+                        return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
         public string GetShortCode(int SN)
         {
-            return "S" + SN.ToString("D7");
+            return "S" + SN.ToString("D6"); //Sample S000002
         }
 
     }

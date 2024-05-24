@@ -23,6 +23,6 @@ Your Short URL: <input type="text mt-3 d-inline" class="form-control" @bind-valu
 
         ShortURL sUrl = new();
         if (sUrl.Create(ref mUrl))
-            shortURL = "https://localhost/Go?s=" + mUrl.ShortURL;
+            shortURL = "https://localhost/Go?s=" + mUrl.ShortCode;
     }
 }

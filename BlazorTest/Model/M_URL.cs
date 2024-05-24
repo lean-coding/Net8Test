@@ -15,7 +15,7 @@
         /// <summary>
         /// 短網址
         /// </summary>
-        public string ShortURL { get; set; }
+        public string ShortCode { get; set; }
 
     }
 }
